@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import com.gl.bed.gradedprject4.Model.Employee;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
+public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 }

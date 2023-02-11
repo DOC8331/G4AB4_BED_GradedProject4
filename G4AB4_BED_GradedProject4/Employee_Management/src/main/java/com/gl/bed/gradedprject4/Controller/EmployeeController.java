@@ -1,24 +1,25 @@
 package com.gl.bed.gradedprject4.Controller;
 
-import java.security.Principal;
+//import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+//import org.springframework.web.servlet.ModelAndView;
+
 
 import com.gl.bed.gradedprject4.Model.Employee;
 import com.gl.bed.gradedprject4.Service.EmployeeService;
 
 @RestController
-@RequestMapping("/employee")
+@RequestMapping("/employees")
 public class EmployeeController {
 	
 	@Autowired 
@@ -29,57 +30,34 @@ public class EmployeeController {
 		List<Employee> emp = employeeService.fetchAllEmployee();
 		return emp;
 	}
+	@GetMapping("/getemployeebyid")
+	@ResponseBody
+	public Employee getEmployeesbyid(Long empId) {
+		Employee emp = employeeService.fetchEmployeeById(empId);
+		return emp;
+	}
 	
-//	@RequestMapping("/addForm")
-//	public String addForm(ModelMap modelMap, @ModelAttribute ("student") Employee stud, @ModelAttribute ("String") String rError) {
-//		
-//		modelMap.addAttribute("student", stud);
-//		if (rError!=null)
-//			modelMap.addAttribute("Err", rError);
-//		return "addForm";
-//	}
-//	
-//	@RequestMapping("/save")
-//	public String save(@ModelAttribute ("student") Employee thestud, ModelMap modelMap, RedirectAttributes ra) {
-//		String err = "Record already exists";
-//		String errL = "Fields cannot be blank";
-//		
-//		if(thestud.getStudName().isEmpty() || thestud.getStudDept().isEmpty() || thestud.getStudCountry().isEmpty()) {
-//			ra.addFlashAttribute("student", thestud);
-//			ra.addFlashAttribute("String", errL);
-//			return "redirect:addForm"; 
-//		}			
-//		
-//		if (studentService.saveStudent(thestud)!=null) {
-//			return "redirect:list"; 
-//		}
-//		else {
-//			System.out.println("STUD"+thestud.toString());
-//			ra.addFlashAttribute("student", thestud);
-//			ra.addFlashAttribute("String", err);
-//			return "redirect:addForm"; 
-//		}				
-//	}
-//	
-//	@RequestMapping("/update")
-//	public String update(@ModelAttribute ("student") Employee thestudent, ModelMap modelMap) {
-//		studentService.updateStudent(thestudent); 
-//		return "redirect:list"; 
-//	}	 	
-//	
-//	@RequestMapping("/delete")
-//	public String delete(@RequestParam("studId") int studId, ModelMap modelMap) {
-//		studentService.deleteStudentById(studId);	
-//		return "redirect:list"; 
-//	}
-//	
-//	@RequestMapping("/showFormUpdate")
-//	public String update(@RequestParam("studId") int studId, ModelMap modelMap) {
-//		Employee stud = studentService.fetchStudentById(studId);
-//		modelMap.addAttribute("student", stud);
-//		return "update";
-//	}
-//	
+	
+	@PostMapping("/add")
+	public Employee save(String emp_firstname, String emp_lastname,  String emp_email) {
+		Employee employee=new Employee();
+		employee.setEmp_firstname(emp_firstname);
+		employee.setEmp_lastname(emp_lastname);
+		employee.setEmp_email(emp_email);
+		return employeeService.saveEmployee(employee); 
+		}			
+	
+	@PutMapping("/update")
+	public Employee updateEmployee(Employee employee) {
+		return employeeService.updateEmployee(employee); 
+	}	 	
+	
+	@DeleteMapping("/delete")
+	public void deleteEmployee(Long empid) {
+		employeeService.deleteEmployeeById(empid);	
+	}
+	
+	
 //	@RequestMapping(value = "/403")
 //	public ModelAndView accesssDenied(Principal user) {
 //

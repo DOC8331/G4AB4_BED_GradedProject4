@@ -19,7 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return this.employeeRepository.save(employee);
 	}
 	
-	public void deleteEmployeeById(int empId) {
+	public void deleteEmployeeById(Long empId) {
 		this.employeeRepository.deleteById(empId);
 	}
 	
@@ -27,7 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return this.employeeRepository.save(employee);
 	}
 	
-	public Employee fetchEmployeeById(int empId) {
+	public Employee fetchEmployeeById(Long empId) {
 		return this.employeeRepository.getById(empId);
 	}
 	
