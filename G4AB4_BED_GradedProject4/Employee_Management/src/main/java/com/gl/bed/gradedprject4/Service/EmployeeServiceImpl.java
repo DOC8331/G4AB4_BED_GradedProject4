@@ -1,6 +1,8 @@
 package com.gl.bed.gradedprject4.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.gl.bed.gradedprject4.Model.Employee;
@@ -27,8 +29,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 		return this.employeeRepository.save(employee);
 	}
 	
-	public Employee fetchEmployeeById(Long empId) {
-		return this.employeeRepository.getById(empId);
+	public Optional<Employee> fetchEmployeeById(Long empId) {
+		return Optional.of(this.employeeRepository.getById(empId));
 	}
 	
 	public List<Employee> fetchAllEmployee() {

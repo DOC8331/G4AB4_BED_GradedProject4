@@ -2,6 +2,7 @@ package com.gl.bed.gradedprject4.Controller;
 
 //import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,8 +33,8 @@ public class EmployeeController {
 	}
 	@GetMapping("/getemployeebyid")
 	@ResponseBody
-	public Employee getEmployeesbyid(Long empId) {
-		Employee emp = employeeService.fetchEmployeeById(empId);
+	public Optional<Employee> getEmployeesbyid(Long empId) {
+		Optional<Employee> emp = employeeService.fetchEmployeeById(empId);
 		return emp;
 	}
 	
